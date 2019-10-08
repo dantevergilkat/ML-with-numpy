@@ -13,17 +13,12 @@ def softmax(x, n, epoch=1): # n is the number of samples
     for i in range(n):
         e_x = np.exp(x[i] - np.max(x[i]))
         p_pred[i] = e_x / e_x.sum()
-        '''if epoch==0:
-            print('e_x: ', e_x)
-            print('prob: ', e_x/e_x.sum())'''
-    
-    '''if epoch==0:
-        print('p_pred in func: ', p_pred)'''
+            
     return p_pred
 
 # N is batch size; D_in is input dimension;
 # H is hidden dimension; D_out is output dimension.
-N, D_in, H, D_out = 10, 784, 200, 10
+N, D_in, H, D_out = 10, 784, 200, 10 # Change H for 3 submissions
 
 # Get data from csv
 with open('.//digit-recognizer//train.csv') as csv_file:
@@ -78,7 +73,7 @@ for epoch in range(500):
         #if batch_index == 0:
             #print('y: ', y)
 
-        # Forward pass: compute predicted y
+        # Forward 
         h = x.dot(w1)
         h_relu = np.maximum(h, 0)
         y_pred = h_relu.dot(w2)
@@ -86,7 +81,7 @@ for epoch in range(500):
         #if batch_index == 0:
             #print('p_pred: ', p_pred)
 
-        # Backprop to compute gradients of w1 and w2 with respect to loss
+        # Backprop
         grad_y_pred = (p_pred - y)
         grad_w2 = h_relu.T.dot(grad_y_pred)
         grad_h_relu = grad_y_pred.dot(w2.T)
@@ -104,33 +99,12 @@ for epoch in range(500):
     h_relu = np.maximum(h, 0)
     y_pred = h_relu.dot(w2)
     p_pred = softmax(y_pred, y_pred.shape[0], 0) # --Add--
-    '''print('X_valid ',X_valid.shape)
-    print('w1 ',w1.shape)
-    print('h ',h.shape)
-    print('h_relu ',h_relu.shape)
-    print('w2 ',w2.shape)
-    print('y_pred ',y_pred.shape)
-    print('p_pred ',p_pred.shape)
-    print('y_valid ',y_valid.shape)''' 
+    
 
     # Calculate loss
     eps = 1e-2
     M = np.multiply(y_valid, np.log(p_pred+eps)) # plus epsilon here for not having NaN error
-    if epoch == 0:
-        #print('y_pred: ', y_pred)
-        print('p_pred: ', p_pred)
-        print('Log: ', np.log(p_pred))
-        print('M: ', M)
-        print('y_valid having infinity: ', np.isinf(y_valid).any())
-        print('p_pred having infinity: ', np.isinf(p_pred).any())
-        print('np.log(p_pred) having infinity: ', np.isinf(np.log(p_pred)).any())
-        '''print('y_valid shape: ', y_valid.shape)
-        print('np.log(p_pred) shape: ', np.log(p_pred).shape)
-        print('M shape: ', M.shape)'''
-        print('y_valid having NaN: ', np.isnan(y_valid).any())
-        print('p_pred having NaN: ', np.isnan(p_pred).any())
-        print('np.log(p_pred) having NaN: ', np.isnan(np.log(p_pred)).any())
-        print('M having NaN: ', np.isnan(M).any())
+    
     M = np.sum(M, axis=1)
     loss = -np.average(M)
     #loss = -y_valid.T.dot(np.log(p_pred))
