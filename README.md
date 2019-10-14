@@ -8,11 +8,13 @@ Implement neural network using numpy
 3. 400 neuron trong lớp ẩn, Gradient descent, 500 epoch. Kết quả submit: 93.185%
 
 - Sử dụng chương trình:
+
 python train.py
 
 python test.py
 
 - Link tham khảo:
+
 https://en.wikipedia.org/wiki/Backpropagation
 
 https://towardsdatascience.com/how-does-back-propagation-in-artificial-neural-networks-work-c7cad873ea7
