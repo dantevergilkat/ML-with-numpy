@@ -9,9 +9,9 @@ Implement neural network using numpy
 
 - Sử dụng chương trình:
 
-python train.py
+Để train và xuất ra file weight: python train.py
 
-python test.py
+Để tính kết quả trên tập test từ file weight có được: python test.py
 
 - Link tham khảo:
 
